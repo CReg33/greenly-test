@@ -16,8 +16,10 @@ for (let elapsedDays = 0; elapsedDays < 30; elapsedDays++) {
   log.push(JSON.stringify(store.updateDiscounts()));
 }
 
+const result = log.join();
+
 /* eslint-disable no-console */
-fs.writeFile("output.txt", log, err => {
+fs.writeFile("output.txt", result, err => {
   if (err) {
     console.log("error");
   } else {
