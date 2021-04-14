@@ -33,19 +33,21 @@ export class Store {
     this.discountOffers.forEach(discount => {
       switch(discount.partnerName) {
         default: 
-          this.updateRegularDiscount();
+          this.updateRegularDiscount(discount, 1);
           break;
         case "Naturalia":
-          this.updateNaturaliaDiscount();
+          this.updateNaturaliaDiscount(discount);
           break;
         case "Vinted":
-          this.updateVintedDiscount();
+          this.updateVintedDiscount(discount);
           break;
         case "BackMarket":
-          this.updateRegularDiscount();
+          this.updateRegularDiscount(discount, 2);
           break;  
       }
+      discount.expiresIn -= 1;
     })
-
+    console.log(this.discountOffers);
     return this.discountOffers;
+  }
 }
