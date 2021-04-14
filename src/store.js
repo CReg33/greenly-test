@@ -4,14 +4,14 @@ export class Store {
   }
   
   updateRegularDiscount(discount, value) {
-    if (discount.expiresIn >= 0) {
+    if (discount.expiresIn > 0) {
       discount.decreaseDiscountInPercent(value);
     } else {
       discount.decreaseDiscountInPercent(value * 2);
     }
   }
   updateNaturaliaDiscount(discount) {
-    if (discount.expiresIn >= 0) {
+    if (discount.expiresIn > 0) {
       discount.increaseDiscountInPercent(1)
     } else {
       discount.increaseDiscountInPercent(2)
@@ -22,7 +22,7 @@ export class Store {
       discount.increaseDiscountInPercent(1) 
     } else if (discount.expiresIn <= 10 && discount.expiresIn > 5) {
       discount.increaseDiscountInPercent(2)
-    } else if (discount.expiresIn <= 5 && discount.expiresIn >= 0) {
+    } else if (discount.expiresIn <= 5 && discount.expiresIn > 0) {
       discount.increaseDiscountInPercent(3)
     } else {
       discount.discountInPercent = 0
@@ -30,7 +30,7 @@ export class Store {
   }
 
   updateDiscounts() {
-    this.discountOffers.forEach(discount => {
+    this.discountOffers.filter(discount => discount.partnerName !== "Ilek").forEach(discount => {
       switch(discount.partnerName) {
         default: 
           this.updateRegularDiscount(discount, 1);
@@ -47,7 +47,6 @@ export class Store {
       }
       discount.expiresIn -= 1;
     })
-    console.log(this.discountOffers);
     return this.discountOffers;
   }
 }
